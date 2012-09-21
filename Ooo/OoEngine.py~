@@ -1,0 +1,93 @@
+import sys
+import os
+import subprocess
+import time
+
+#os.environ['URE_BOOTSTRAP'] = 'vnd.sun.star.pathname:c:\Program Files\OpenOffice.org 3\program\fundamental.ini'
+#os.environ['UNO_PATH'] = 'c:\Program Files\OpenOffice.org 3\program\\'
+#os.environ['PATH'].append('c:\Program Files\OpenOffice.org 3\URE\bin;c:\Program Files\OpenOffice.org 3\Basis\program;')
+
+os.environ['PYTHONPATH'] = r'/opt/openoffice.org/basis3.4/program'
+sys.path.append( r'C:\Program Files\OpenOffice.org 3\Basis\program')
+sys.path.append( r'C:\Program Files\OpenOffice.org 3\program')
+
+import socket
+import uno
+from officehelper import *
+from com.sun.star.uno  import RuntimeException
+from com.sun.star.lang import IllegalArgumentException
+from com.sun.star.connection import NoConnectException
+
+class OoEngine():
+    def __init__( self):
+        print "OoEngine init.."
+#        self.getInstance()
+
+#    @staticmethod
+    def getInstance( self):
+        process = subprocess.Popen( [r'/opt/openoffice.org3/program/soffice', '-accept=socket,host=localhost,port=8100;urp;'], stdin=subprocess.PIPE,stdout=subprocess.PIPE,shell=True)
+        print "soffice opened"
+        time.sleep(5)
+
+#        bootstrap()
+
+#    @staticmethod
+    def startupDesktop( self):
+        print "openoffice is opened.."
+
+        localContext = uno.getComponentContext()
+        resolver = localContext.ServiceManager.createInstanceWithContext( "com.sun.star.bridge.UnoUrlResolver", localContext )
+        self.m_context = resolver.resolve( "uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext" )
+        print "??????"
+        smgr = self.m_context.ServiceManager
+        self.m_desktop = smgr.createInstanceWithContext( "com.sun.star.frame.Desktop", self.m_context)
+        frame = self.m_desktop.getCurrentFrame()
+        window = frame.getContainerWindow()
+        window.setVisible( False)
+
+        
+#    @staticmethod
+    def openDocument( self):
+        print "OoEngine openDocument.."
+        
+        self.m_doc = self.m_desktop.loadComponentFromURL( "private:factory/swriter", "_blank", 0, () )
+        self.m_hasDoc = True
+        
+
+#    @staticmethod
+    def insertText( self, _text):
+        print "OoEngine insertText..."
+      
+        text = self.m_doc.Text
+        cursor = text.createTextCursor()
+        text.insertString( cursor, _text, 0 )
+
+    def insertTextIntoCell( table, cellName, text, color ):
+        tableText = table.getCellByName( cellName)
+        cursor = tableText.createTextCursor()
+        cursor.setPropertyValue( "CharColor", color )
+        tableText.setString( text )
+    
+    def insertTable( self, lstRowCol):
+        print lstRowCol
+        print "---------------------------=="
+        for lstRow in lstRowCol:
+            for str in lstRow:
+                print str
+#        if ( self.m_hasDoc == False):
+#            pass
+        text = self.m_doc.Text
+        table = self.m_doc.createInstance( "com.sun.star.text.TextTable" )
+
+        table.initialize( 4,3)
+
+        cursor = text.createTextCursor()
+        text.insertTextContent( cursor, table, 0 )
+
+        table.getCellByName("A2").setValue(33)
+        self.insertTextIntoCell(table, "B2", "i am b2")
+        
+        
+        
+        
+        
