@@ -106,6 +106,7 @@ class MainWindow( QMainWindow):
 
         oe.startupDesktop()
         oe.openDocument()
+        oe.insert_index('asdfasdfasdfasdf')
 
         lstRowCol = [['' for x in range(3)] for y in range(4)]
         lstRowCol[0][0] = '1'

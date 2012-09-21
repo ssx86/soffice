@@ -17,6 +17,7 @@ import socket
 import uno
 import unohelper
 from officehelper import *
+from com.sun.star.text.ControlCharacter import PARAGRAPH_BREAK 
 class OoEngine():
 
     def __init__( self):
@@ -91,15 +92,21 @@ class OoEngine():
         cursor = text.createTextCursor()
         # 插入表格
         text.insertTextContent( cursor, table, 0 )
-
         oldContext = uno.getCurrentContext()
-        print oldContext
-
         unohelper.CurrentContext( oldContext,{"My42":42})  
-
         oldContext = uno.getCurrentContext()
-        print oldContext
 
         # test 设置其中一个格的文本
         table.getCellByName("A3").setValue(55)
         self.insertTextIntoCell(table, "B2", "i am b2", 5734)
+
+    def insert_index(self, text):
+        print "insert index"
+        _text = self.m_doc.Text
+        cursor = _text.createTextCursor()
+        cursor.gotoEnd(False)
+        _text.insertString( cursor, text, 0 )
+        _text.insertControlCharacter(cursor, PARAGRAPH_BREAK, False)
+        _text.insertString( cursor, text, 0 )
+
+
