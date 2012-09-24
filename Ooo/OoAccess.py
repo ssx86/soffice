@@ -1,28 +1,26 @@
 #coding=utf-8
 
-import sys
+
 import os
-import subprocess
-import time
-import uno
+import sys
+import getopt
 
-
+sys.path.append("/opt/openoffice.org3.0/program/")
 #os.environ['URE_BOOTSTRAP'] = 'vnd.sun.star.pathname:c:\Program Files\OpenOffice.org 3\program\fundamental.ini'
 os.environ['URE_BOOTSTRAP'] = 'vnd.sun.star.pathname:/opt/openoffice.org3/program/fundamentalrc'
 #os.environ['UNO_PATH'] = 'c:\Program Files\OpenOffice.org 3\program\\'
 #os.environ['PATH'].append('c:\Program Files\OpenOffice.org 3\URE\bin;c:\Program Files\OpenOffice.org 3\Basis\program;')
 
-sys.path.append( r'C:\Program Files\OpenOffice.org 3\Basis\program')
-sys.path.append( r'C:\Program Files\OpenOffice.org 3\program')
+
+
+import uno
 
 from unohelper import Base, absolutize, systemPathToFileUrl
 from com.sun.star.io import XOutputStream, IOException
 from com.sun.star.beans import PropertyValue
-#from com.sun.star.text import XTextFieldsSupplier, XBookmarksSupplier  
-# interfaces
+#from com.sun.star.text import XTextFieldsSupplier, XBookmarksSupplier   # interfaces
 # values for the property "UpdateDocMode"
 from com.sun.star.document.UpdateDocMode import NO_UPDATE, QUIET_UPDATE, ACCORDING_TO_CONFIG, FULL_UPDATE
-
 # value for the property "MacroExecMode"
 from com.sun.star.document.MacroExecMode import NEVER_EXECUTE, FROM_LIST, ALWAYS_EXECUTE, USE_CONFIG, ALWAYS_EXECUTE_NO_WARN, USE_CONFIG_REJECT_CONFIRMATION, USE_CONFIG_APPROVE_CONFIRMATION, FROM_LIST_NO_WARN, FROM_LIST_AND_SIGNED_WARN, FROM_LIST_AND_SIGNED_NO_WARN
 from com.sun.star.uno import Exception as UnoException
@@ -79,7 +77,9 @@ class OoAccess(object):
     
     def test(self, msg="Hello World ", capture=False):
         # access the document's text property
-        text = self.model.Text
+
+        # text = self.model.Text()
+        text = self.desktop.loadComponentFromURL( "private:factory/swriter", "_blank", 0, () ).Text
         # create a cursor
         cursor = text.createTextCursor()
         # insert the text into the document
@@ -434,6 +434,7 @@ class OoObject(object):
 
     def addText(self, text="-Hello World-", capture=False):
         # insert the text into the document
+        msg = ""
         self.__text.insertString(self.__cursor, msg, capture)
     
     
@@ -881,3 +882,4 @@ o = OoObject()
 #   render
 #   replaceAll
 #   updateLinks
+
