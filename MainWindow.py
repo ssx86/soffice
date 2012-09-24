@@ -21,7 +21,7 @@ from AboutDialog import AboutDialog
 from ContentEditWidget import ContentEditWidget
 
 sys.path.append( 'Ooo')
-from OoEngine import OoEngine
+from OoAccess import OoAccess
 
 class MainWindow( QMainWindow):
     def __init__( self, parent=None):
@@ -99,27 +99,4 @@ class MainWindow( QMainWindow):
     def openDocument( self, bCheck):
         print "mainWindow openDocument..."
         
-        oe = OoEngine()
-#        oe.startupDesktop()
-#        oe.openDocument()
-#        oe.insertText( "hello...........")
-
-        oe.startupDesktop()
-        oe.openDocument()
-        oe.insert_index('asdfasdfasdfasdf')
-
-        lstRowCol = [['' for x in range(3)] for y in range(4)]
-        lstRowCol[0][0] = '1'
-        lstRowCol[0][1] = '2'
-        lstRowCol[0][2] = '3'
-        lstRowCol[1][0] = '4'
-        lstRowCol[1][1] = '5'
-        lstRowCol[1][2] = '6'
-        lstRowCol[2][0] = '7'
-        lstRowCol[2][1] = '8'
-        lstRowCol[2][2] = '9'
-        lstRowCol[3][0] = '10'
-        lstRowCol[3][1] = '11'
-        lstRowCol[3][2] = '12'
-        
-        oe.insertTable( lstRowCol)
+        o.addText("asdfasdf", True)
