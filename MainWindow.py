@@ -21,7 +21,6 @@ from AboutDialog import AboutDialog
 from ContentEditWidget import ContentEditWidget
 
 sys.path.append( 'Ooo')
-from OoAccess import OoObject
 from OoAccess import OoAccess
 
 class MainWindow( QMainWindow):
@@ -101,4 +100,7 @@ class MainWindow( QMainWindow):
         print "mainWindow openDocument..."
         
         Office = OoAccess()
-        Office.test()
+        Office.gotoEndOfParagraph()
+        Office.addText()
+        Office.gotoEndOfParagraph()
+        Office.addText("asdf’≈")
