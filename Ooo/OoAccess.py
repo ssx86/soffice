@@ -55,7 +55,8 @@ class OoAccess(object):
             # get the centrol desktop object
             self.desktop = self.smgr.createInstanceWithContext("com.sun.star.frame.Desktop", self.ctx)
 
-            self.__text = self.desktop.loadComponentFromURL( "private:factory/swriter", "_blank", 0, () ).Text
+            self.__model = self.desktop.loadComponentFromURL( "private:factory/swriter", "_blank", 0, () )
+            self.__text = self.__model.Text
             self.__cursor = self.__text.createTextCursor()
         except NoConnectException, e:
             raise Exception("OpenOffice process not found or not listening (%s)" % str(e))

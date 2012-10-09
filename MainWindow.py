@@ -103,4 +103,7 @@ class MainWindow( QMainWindow):
         Office.gotoEndOfParagraph()
         Office.addText()
         Office.gotoEndOfParagraph()
-        Office.addText("asdf’≈")
+        Office.addText("asdf")
+        Office.gotoStartOfParagraph()
+        Office.addText("start")
+
