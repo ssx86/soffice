@@ -23,6 +23,11 @@ from com.sun.star.beans import PropertyValue
 from com.sun.star.document.UpdateDocMode import NO_UPDATE, QUIET_UPDATE, ACCORDING_TO_CONFIG, FULL_UPDATE
 # value for the property "MacroExecMode"
 from com.sun.star.document.MacroExecMode import NEVER_EXECUTE, FROM_LIST, ALWAYS_EXECUTE, USE_CONFIG, ALWAYS_EXECUTE_NO_WARN, USE_CONFIG_REJECT_CONFIRMATION, USE_CONFIG_APPROVE_CONFIRMATION, FROM_LIST_NO_WARN, FROM_LIST_AND_SIGNED_WARN, FROM_LIST_AND_SIGNED_NO_WARN
+
+
+# paragraph
+from com.sun.star.text.ControlCharacter import PARAGRAPH_BREAK
+# uno exception
 from com.sun.star.uno import Exception as UnoException
 from com.sun.star.uno import RuntimeException  
 from com.sun.star.connection import NoConnectException
@@ -460,20 +465,5 @@ class OoAccess(object):
         return self.__cursor.isEndOfParagraph()
     def isStartOfParagraph(self):
         return self.__cursor.isStartOfParagraph()
-
-
-
-
-
-
-class OutputStream(Base, XOutputStream):
-    def __init__(self):
-        self.closed=0
-    def closeOutput(self):
-        self.closed = 1
-    def writeBytes(self, seq):
-        sys.stdout.write(seq.value)
-    def flush(self):
-        sys.stdout.flush()
-
-
+    def insertParagraphBreak(self):
+        return self.__text.insertControlCharacter(self.__cursor, PARAGRAPH_BREAK, False)

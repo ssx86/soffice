@@ -100,10 +100,8 @@ class MainWindow( QMainWindow):
         print "mainWindow openDocument..."
         
         Office = OoAccess()
-        Office.gotoEndOfParagraph()
-        Office.addText()
-        Office.gotoEndOfParagraph()
-        Office.addText("asdf")
         Office.gotoStartOfParagraph()
+        Office.addText("start")
+        Office.insertParagraphBreak()
         Office.addText("start")
 
