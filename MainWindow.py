@@ -101,7 +101,19 @@ class MainWindow( QMainWindow):
         
         Office = OoAccess()
         Office.gotoStartOfParagraph()
-        Office.addText("start")
+        Office.addText("first")
         Office.insertParagraphBreak()
-        Office.addText("start")
+        Office.addText("second")
+        Office.insertParagraphBreak()
+        Office.addText("third")
+
+        Office.gotoPreviousParagraph()
+
+        #Office.gotoNextWord(True)
+        Office.gotoNextParagraph(True)
+
+        Office.addText("over")
+        Office.setNumbering()
+        
+        
 

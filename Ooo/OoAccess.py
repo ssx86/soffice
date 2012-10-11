@@ -465,5 +465,10 @@ class OoAccess(object):
         return self.__cursor.isEndOfParagraph()
     def isStartOfParagraph(self):
         return self.__cursor.isStartOfParagraph()
+
     def insertParagraphBreak(self):
         return self.__text.insertControlCharacter(self.__cursor, PARAGRAPH_BREAK, False)
+#    def insertParagraph(self):
+#        return self.__model.createInstance("com.sun.star.text.Paragraph")
+    def setNumbering(self):
+        self.__cursor.setPropertyValue( "CharColor", 255 )
