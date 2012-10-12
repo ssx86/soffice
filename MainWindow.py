@@ -112,8 +112,9 @@ class MainWindow( QMainWindow):
         #Office.gotoNextWord(True)
         Office.gotoNextParagraph(True)
 
+        Office.setTextColor(255)
         Office.addText("over")
-        Office.setNumbering()
-        
-        
+        Office.addText("fourth")
+
+        Office.fck()
 

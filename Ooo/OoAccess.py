@@ -468,7 +468,32 @@ class OoAccess(object):
 
     def insertParagraphBreak(self):
         return self.__text.insertControlCharacter(self.__cursor, PARAGRAPH_BREAK, False)
-#    def insertParagraph(self):
-#        return self.__model.createInstance("com.sun.star.text.Paragraph")
-    def setNumbering(self):
-        self.__cursor.setPropertyValue( "CharColor", 255 )
+
+    '''
+    def insertParagraph(self):
+        paragraph = self.__model.createInstance("com.sun.star.text.Paragraph")
+        self.__text.insertString(self.__cursor, paragraph, 0)
+    '''
+
+    def setTextColor(self, color):
+        self.__cursor.setPropertyValue( "CharColor", color )
+
+    def setNumberLevel(self, level):
+        print "lalala"
+        print self.__text.getPropertyValue( "NumberingLevel", level )
+
+
+    def fck(self):
+
+        #设置段落
+        self.__cursor.setPropertyValue( "ParaStyleName", "Heading 3" )
+
+        numberingRule = self.__model.createInstance( "com.sun.star.text.NumberingRules" )
+
+        paragraph = self.__model.createInstance("com.sun.star.text.Paragraph")
+
+        curSection = self.__model.createInstance("com.sun.star.text.TextSection")
+
+        self.__text.insertTextContentAfter( paragraph, self.__cursor )
+        
+       # paragraph.setPropertyValue( "NumberingLevel", 2 )
