@@ -40,6 +40,16 @@ from file_system import FileSystem
 
 fs = FileSystem(".")
 
+class OutputStream(Base, XOutputStream):
+    def __init__(self):
+        self.closed=0
+    def closeOutput(self):
+        self.closed = 1
+    def writeBytes(self, seq):
+        sys.stdout.write(seq.value)
+    def flush(self):
+        sys.stdout.flush()
+
 class OoAccess(object):
     def __init__(self, ooPort=2002, fileSystem=None):
         if fileSystem is None:
@@ -69,7 +79,6 @@ class OoAccess(object):
             raise Exception("The url is invalid (%s)" % str(e))
         except RuntimeException, e:
             raise Exception("An unknown error occured: %s" % str(e))
-
     
     
     def __del__(self):
@@ -469,11 +478,11 @@ class OoAccess(object):
     def insertParagraphBreak(self):
         return self.__text.insertControlCharacter(self.__cursor, PARAGRAPH_BREAK, False)
 
-    '''
+    """
     def insertParagraph(self):
         paragraph = self.__model.createInstance("com.sun.star.text.Paragraph")
         self.__text.insertString(self.__cursor, paragraph, 0)
-    '''
+    """
 
     def setTextColor(self, color):
         self.__cursor.setPropertyValue( "CharColor", color )
@@ -481,6 +490,11 @@ class OoAccess(object):
     def setNumberLevel(self, level):
         print "lalala"
         print self.__text.getPropertyValue( "NumberingLevel", level )
+
+
+    def save(self):
+        self.saveDoc(self.__model, "/home/zhangss/temp.doc" )
+        self.closeDoc(self.__model)
 
 
     def fck(self):
@@ -494,6 +508,18 @@ class OoAccess(object):
 
         curSection = self.__model.createInstance("com.sun.star.text.TextSection")
 
-        self.__text.insertTextContentAfter( paragraph, self.__cursor )
-        
-       # paragraph.setPropertyValue( "NumberingLevel", 2 )
+
+        style = self.__model.createInstance("com.sun.star.style.NumberingStyle")
+#        family = self.__model.getStyleFamilies().getByName('NumberingStyles')
+#        family.insertByName('List test', style)
+
+#        rule = style.getPropertyValue('NumberingRules')
+#        rule = style.getPropertyValue('NumberingType')
+#        level = rule.getByIndex(0)
+#
+#        # the normal call would have been:
+#        # rule.replaceByIndex( 0, level )
+#        # but this will end up in a exception
+#        # magic to pass the exact type to the callee
+#        uno.invoke( rule , "replaceByIndex", (0, uno.Any("[]com.sun.star.beans.PropertyValue",level)) )
+

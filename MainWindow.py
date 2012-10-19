@@ -116,5 +116,6 @@ class MainWindow( QMainWindow):
         Office.addText("over")
         Office.addText("fourth")
 
-        Office.fck()
+        #Office.fck()
+        Office.save()
 
