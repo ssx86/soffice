@@ -46,21 +46,64 @@ attrs_document_content = {
     'office:version'  : "1.2"
 }
 
+attrs_font_face = [
+        ["Courier 10 Pitch", "&apos;Courier 10 Pitch&apos;", "fixed"],
+        ["微软雅黑", "微软雅黑", "variable"]
+        ]
+
+
 doc = Document()
 
+# 创建根元素
 document_content = doc.createElement('office:document-content') #创建根元素
-
 for key, value in attrs_document_content.items():
     document_content.setAttribute(key, value)
-
 doc.appendChild(document_content)
 
-textspan = doc.createElement('notextspan')
-textspan.setAttribute('span1', 'spanvalue1')
-document_content.appendChild(textspan)
+# office:scripts 
+scripts = doc.createElement('office:scripts')
+document_content.appendChild(scripts)
+
+# office:font-face-decls
+font_face_decls = doc.createElement('office:font-face-decls')
+for i in attrs_font_face:
+    font_face = doc.createElement('style:font-face')
+    font_face.setAttribute('style:name', i[0])
+    font_face.setAttribute('style:font-family', i[1])
+    font_face.setAttribute('style:font-pitch', i[2])
+    font_face_decls.appendChild(font_face)
+document_content.appendChild(font_face_decls)
+
+"""
+
+<style:style style:name="P1" style:family="paragraph" style:parent-style-name="Standard">
+    <style:text-properties officeooo:paragraph-rsid="00173d7a"/>
+</style:style>
+<style:style style:name="P2" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+    <style:text-properties officeooo:paragraph-rsid="00173d7a"/>
+</style:style>
+<style:style style:name="P3" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+    <style:text-properties style:font-name="微软雅黑" officeooo:paragraph-rsid="00173d7a" style:font-name-asian="微软雅黑"/>
+</style:style>
+<style:style style:name="T1" style:family="text">
+    <style:text-properties officeooo:rsid="00173d7a"/>
+</style:style>
+<style:style style:name="T2" style:family="text">
+    <style:text-properties style:font-name="Courier 10 Pitch" officeooo:rsid="00173d7a"/>
+</style:style>
+
+
+"""
+# office:automatic-styles
+automatic_styles = doc.createElement('office:automatic-styles')
+document_content.appendChild(automatic_styles)
+
+# office:body
+body = doc.createElement('office:body')
+document_content.appendChild(body)
 
 ########### 将DOM对象doc写入文件
 f = open('test2.xml','w')
-f.write(doc.toxml())
-#f.write(doc.toprettyxml(indent = ' '))
+#f.write(doc.toxml())
+f.write(doc.toprettyxml(indent = '  '))
 f.close()
