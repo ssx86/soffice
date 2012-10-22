@@ -1,3 +1,4 @@
+#coding:utf-8
 from ooopy.Transformer import Transformer
 from ooopy.OOoPy import OOoPy 
 
@@ -52,6 +53,14 @@ cursor.insertText("are ");
 format.setBackground(QColor(0, 255, 255));
 cursor.insertBlock(format);
 cursor.insertText("coming!");
+
+
+table = cursor.insertTable(10, 3)
+table.mergeCells(2, 2, 4, 1)
+cursor = table.cellAt(1, 1).firstCursorPosition();
+
+cursor.insertBlock(format);
+cursor.insertText("asdfasdf")
 
 
 # Create a writer to save the document
