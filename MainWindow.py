@@ -20,8 +20,8 @@ from TempleteDownloadDialog import TempleteDownloadDialog
 from AboutDialog import AboutDialog
 from ContentEditWidget import ContentEditWidget
 
-sys.path.append( 'Ooo')
-from OoAccess import OoAccess
+sys.path.append( 'OpenOffice')
+from OpenOffice import OpenOffice
 
 class MainWindow( QMainWindow):
     def __init__( self, parent=None):
@@ -99,23 +99,48 @@ class MainWindow( QMainWindow):
     def openDocument( self, bCheck):
         print "mainWindow openDocument..."
         
-        Office = OoAccess()
-        Office.gotoStartOfParagraph()
-        Office.addText("first")
-        Office.insertParagraphBreak()
-        Office.addText("second")
-        Office.insertParagraphBreak()
-        Office.addText("third")
+        office = OpenOffice("怎么回事儿.odt")
 
-        Office.gotoPreviousParagraph()
+        # Insert some text
+        office.setListFormat(QTextListFormat.ListUpperAlpha)
 
-        #Office.gotoNextWord(True)
-        Office.gotoNextParagraph(True)
+        office.insertImage("img/123.png", 50, 200, QTextFrameFormat.FloatRight)
+        office.insertList()
 
-        Office.setTextColor(255)
-        Office.addText("over")
-        Office.addText("fourth")
+        office.insertText("中文\n")
+        office.insertText("two\n")
+        office.insertText("three\n")
+        office.insertText("\n")
+        office.insertText("\n")
+        office.insertText("\n")
 
-        #Office.fck()
-        Office.save()
+        office.reset()
 
+        #cursor.insertBlock()
+        #
+        #listFormat.clearProperty(QTextFormat.ListStyle)
+        #
+        #cursor.insertBlock()
+        #
+        #cursor.insertText("one")
+        #cursor.insertText("\ntwo")
+        #cursor.insertText("\nthree")
+
+
+        office.setBlockBgColor(QColor(255, 0, 0))
+        office.insertText("123")
+
+        office.setBlockBgColor(QColor(255, 255, 0))
+        office.insertText("456")
+
+        office.setBlockBgColor(QColor(0, 255, 0))
+        office.insertText("789\n101001 ")
+
+        table = office.insertTable(10, 3)
+        office.tableMergeCells(table, 2, 2, 4, 1)
+
+        office.tableMoveToCell(table, 4, 1)
+
+        office.insertText("asdfasdf")
+
+        office.done()
