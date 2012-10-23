@@ -16,7 +16,7 @@ from TaskTreeDockWidget import TaskTreeDockWidget
 sys.path.append( 'module')
 from TaskSelectDialog import TaskSelectDialog
 from ReportDownloadDialog import ReportDownloadDialog
-from TempleteDownloadDialog import TempleteDownloadDialog
+from TemplateDownloadDialog import TemplateDownloadDialog
 from ContentEditWidget import ContentEditWidget
 
 # lsp
@@ -69,9 +69,9 @@ class MainWindow( QMainWindow):
         dlg = TaskSelectDialog( self)
         dlg.exec_()
 
-    def templeteDownload( self, bCheck):
-        print "mainWindow templeteDownload..."
-        dlg = TempleteDownloadDialog( self)
+    def templateDownload( self, bCheck):
+        print "mainWindow templateDownload..."
+        dlg = TemplateDownloadDialog( self)
         dlg.exec_()
 
     def reportDownload( self, bCheck):
@@ -85,10 +85,12 @@ class MainWindow( QMainWindow):
         dlg.exec_()
 
     def showTemplateManager(self, bCheck):
+        print "templatemanager menu"
         dlg = TemplateManager(self)
         dlg.exec_()
 
     def showReportManager(self, bCheck):
+        print "reportmanager menu"
         dlg = ReportManager(self)
         dlg.exec_()
         
@@ -98,8 +100,8 @@ class MainWindow( QMainWindow):
         self.setCentralWidget( editWid)
         editWid.show()
 
-    def templeteUpload( self, bCheck):
-        print "mainWindow templeteUpload..."
+    def templateUpload( self, bCheck):
+        print "mainWindow templateUpload..."
         filepath = QFileDialog.getOpenFileName( self)
         print ( "filepath is : %s", filepath)
 

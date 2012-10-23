@@ -55,26 +55,27 @@ class MenuMgr( QObject):
 
         """菜单-模板
         """
-        templeteMenu = self.m_menuBar.addMenu( self.tr("模板"))
-        templeteManagerAct = QAction( self.tr("模板管理"), templeteMenu)
-        templeteMenu.addAction( templeteManagerAct)
-        self.connect( templeteManagerAct, SIGNAL('triggered(bool)'), self.m_mainWindow, SLOT('showTempleteManager()'))
+        templateMenu = self.m_menuBar.addMenu( self.tr("模板"))
+        templateManagerAct = QAction( self.tr("模板管理"), templateMenu)
+        templateMenu.addAction( templateManagerAct)
+        templateManagerAct.triggered.connect( self.m_mainWindow.showTemplateManager )
+        #self.connect( templateManagerAct, SIGNAL('triggered(bool)'), self.m_mainWindow, SLOT('showTempleteManager()'))
 
-        createTempleteAct = QAction( self.tr("新建"), templeteMenu)
-        templeteMenu.addAction( createTempleteAct)
+        createTempleteAct = QAction( self.tr("新建"), templateMenu)
+        templateMenu.addAction( createTempleteAct)
         self.connect( createTempleteAct, SIGNAL('triggered(bool)'), self.m_mainWindow, SLOT('createTemplete()'))
 
-        templeteEditAct = QAction( self.tr("编辑"), templeteMenu)
-        templeteMenu.addAction( templeteEditAct)
-        self.connect( templeteEditAct, SIGNAL('triggered(bool)'), self.m_mainWindow, SLOT('templeteEdit()'))
+        templateEditAct = QAction( self.tr("编辑"), templateMenu)
+        templateMenu.addAction( templateEditAct)
+        self.connect( templateEditAct, SIGNAL('triggered(bool)'), self.m_mainWindow, SLOT('templateEdit()'))
 
-        templeteUploadAct = QAction( self.tr("入库"), templeteMenu)
-        templeteMenu.addAction( templeteUploadAct)
-        templeteUploadAct.triggered.connect( self.m_mainWindow.templeteUpload)
+        templateUploadAct = QAction( self.tr("入库"), templateMenu)
+        templateMenu.addAction( templateUploadAct)
+        templateUploadAct.triggered.connect( self.m_mainWindow.templateUpload)
 
-        templeteDownloadAct = QAction( self.tr("下载"), templeteMenu)
-        templeteMenu.addAction( templeteDownloadAct)
-        templeteDownloadAct.triggered.connect( self.m_mainWindow.templeteDownload)
+        templateDownloadAct = QAction( self.tr("下载"), templateMenu)
+        templateMenu.addAction( templateDownloadAct)
+        templateDownloadAct.triggered.connect( self.m_mainWindow.templateDownload)
 
         """菜单-报告
         """
@@ -82,7 +83,8 @@ class MenuMgr( QObject):
 
         reportManagerAct = QAction( self.tr("报告管理"), reportMenu)
         reportMenu.addAction( reportManagerAct)
-        self.connect( reportManagerAct, SIGNAL('triggered(bool)'), self.m_mainWindow, SLOT('showReportManager()'))
+        reportManagerAct.triggered.connect( self.m_mainWindow.showReportManager )
+        #self.connect( reportManagerAct, SIGNAL('triggered(bool)'), self.m_mainWindow, SLOT('showReportManager()'))
 
         createReportAct = QAction( self.tr("新建"), reportMenu)
         reportMenu.addAction( createReportAct)

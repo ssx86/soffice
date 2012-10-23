@@ -8,15 +8,15 @@ import sys
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 
-class TempleteDownloadDialog( QDialog):
+class TemplateDownloadDialog( QDialog):
     def __init__( self, parent=None):
-        super( TempleteDownloadDialog, self).__init__( parent)
+        super( TemplateDownloadDialog, self).__init__( parent)
 
         self.setupUI()
-        print "TempleteDownloadDialog init.."
+        print "TemplateDownloadDialog init.."
         
     def setupUI(self):
-        print "TempleteDownloadDialog setupUI.."
+        print "TemplateDownloadDialog setupUI.."
         self.setWindowTitle( self.tr("模板下载对话框"))
 
         """菜单-文件

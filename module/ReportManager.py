@@ -15,7 +15,12 @@ except AttributeError:
     _fromUtf8 = lambda s: s
 
 class ReportManager(object):
-    def setupUi(self, Dialog):
+    def __init__( self, parent = None ):
+	print "report Manager"
+        super( ReportManage, self).__init__(parent)
+        self.setupUI()
+
+    def setupUI(self):
         Dialog.setObjectName(_fromUtf8("Dialog"))
         Dialog.resize(425, 487)
         Dialog.setWindowTitle(QtGui.QApplication.translate("Dialog", "报告管理", None, QtGui.QApplication.UnicodeUTF8))
@@ -75,10 +80,10 @@ class ReportManager(object):
         self.verticalLayout_2.setMargin(0)
         self.verticalLayout_2.setObjectName(_fromUtf8("verticalLayout_2"))
 
-        self.retranslateUi(Dialog)
+        #self.retranslateUi(Dialog)
         QtCore.QObject.connect(self.cancelButton, QtCore.SIGNAL(_fromUtf8("clicked()")), Dialog.accept)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
-    def retranslateUi(self, Dialog):
+    def retranslateUi(self):
         pass
 
