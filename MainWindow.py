@@ -81,7 +81,15 @@ class MainWindow( QMainWindow):
 
     def about( self, bCheck):
         print "mainWindow about..."
-        dlg = About( self)
+        dlg = About(self)
+        dlg.exec_()
+
+    def showTemplateManager(self, bCheck):
+        dlg = TemplateManager(self)
+        dlg.exec_()
+
+    def showReportManager(self, bCheck):
+        dlg = ReportManager(self)
         dlg.exec_()
         
     def contentEdit( self, bCheck):

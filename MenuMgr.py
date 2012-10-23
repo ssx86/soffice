@@ -56,6 +56,10 @@ class MenuMgr( QObject):
         """菜单-模板
         """
         templeteMenu = self.m_menuBar.addMenu( self.tr("模板"))
+        templeteManagerAct = QAction( self.tr("模板管理"), templeteMenu)
+        templeteMenu.addAction( templeteManagerAct)
+        self.connect( templeteManagerAct, SIGNAL('triggered(bool)'), self.m_mainWindow, SLOT('showTempleteManager()'))
+
         createTempleteAct = QAction( self.tr("新建"), templeteMenu)
         templeteMenu.addAction( createTempleteAct)
         self.connect( createTempleteAct, SIGNAL('triggered(bool)'), self.m_mainWindow, SLOT('createTemplete()'))
@@ -75,6 +79,11 @@ class MenuMgr( QObject):
         """菜单-报告
         """
         reportMenu = self.m_menuBar.addMenu( self.tr("报告"))
+
+        reportManagerAct = QAction( self.tr("报告管理"), reportMenu)
+        reportMenu.addAction( reportManagerAct)
+        self.connect( reportManagerAct, SIGNAL('triggered(bool)'), self.m_mainWindow, SLOT('showReportManager()'))
+
         createReportAct = QAction( self.tr("新建"), reportMenu)
         reportMenu.addAction( createReportAct)
         self.connect( createReportAct, SIGNAL('triggered(bool)'), self.m_mainWindow, SLOT('createReport()'))
