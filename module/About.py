@@ -64,6 +64,7 @@ class About(QDialog):
         self.label_3.setObjectName(_fromUtf8("label_3"))
 
         #self.retranslateUi(self)
+        QtCore.QObject.connect(self.pushButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.accept)
         QtCore.QMetaObject.connectSlotsByName(self)
 
     def retranslateUi(self):
