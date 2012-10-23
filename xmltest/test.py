@@ -1,28 +1,35 @@
-#coding:utf-8
-from ooopy.Transformer import Transformer
-from ooopy.OOoPy import OOoPy 
+# coding:UTF-8
 
-
-from PyQt4 import QtGui
-from PyQt4.QtGui import QTextFormat
+from OpenOffice import OpenOffice
 from PyQt4.QtGui import QTextListFormat
-from PyQt4.QtGui import QTextBlockFormat
+from PyQt4.QtGui import QTextFrameFormat
 from PyQt4.QtGui import QColor
+from PyQt4.QtCore import QTextCodec
 
-# Create a document object
-doc = QtGui.QTextDocument()
-# Create a cursor pointing to the beginning of the document
-cursor = QtGui.QTextCursor(doc)
+QTextCodec.setCodecForTr(QTextCodec.codecForName("UTF-8"))
+QTextCodec.setCodecForCStrings(QTextCodec.codecForName("UTF-8"));
+QTextCodec.setCodecForLocale(QTextCodec.codecForName("UTF-8"));
+
+office = OpenOffice('走你.odt')
 
 # Insert some text
-listFormat = QTextListFormat()
-listFormat.setStyle(QTextListFormat.ListDecimal)
+office.setListFormat(QTextListFormat.ListUpperAlpha)
 
-cursor.insertList(listFormat)
+office.insertImage("./123.png", 50, 200, QTextFrameFormat.FloatRight)
 
-cursor.insertText("one\n")
-cursor.insertText("two\n")
-cursor.insertText("three\n")
+
+
+
+office.insertList()
+
+office.insertText("中文\n")
+office.insertText("two\n")
+office.insertText("three\n")
+office.insertText("\n")
+office.insertText("\n")
+office.insertText("\n")
+
+office.reset()
 
 #cursor.insertBlock()
 #
@@ -35,39 +42,21 @@ cursor.insertText("three\n")
 #cursor.insertText("\nthree")
 
 
+office.setBlockBgColor(QColor(255, 0, 0))
+office.insertText("123")
 
-format = QTextBlockFormat()
-format.setBackground(QColor(255, 0, 0));
-cursor.setBlockFormat(format);
+office.setBlockBgColor(QColor(255, 255, 0))
+office.insertText("456")
 
-cursor.insertText("the ");
+office.setBlockBgColor(QColor(0, 255, 0))
+office.insertText("789\n101001 ")
 
-format.setBackground(QColor(255, 255, 0));
-cursor.insertBlock(format);
-cursor.insertText("fish ");
+table = office.insertTable(10, 3)
+office.tableMergeCells(table, 2, 2, 4, 1)
 
-format.setBackground(QColor(0, 0, 255));
-cursor.insertBlock(format);
-cursor.insertText("are ");
+office.tableMoveToCell(table, 4, 1)
 
-format.setBackground(QColor(0, 255, 255));
-cursor.insertBlock(format);
-cursor.insertText("coming!");
+office.insertText("asdfasdf")
 
+office.done()
 
-table = cursor.insertTable(10, 3)
-table.mergeCells(2, 2, 4, 1)
-cursor = table.cellAt(1, 1).firstCursorPosition();
-
-cursor.insertBlock(format);
-cursor.insertText("asdfasdf")
-
-
-# Create a writer to save the document
-writer = QtGui.QTextDocumentWriter()
-writer.supportedDocumentFormats()
-#[PyQt4.QtCore.QByteArray(b'HTML'), PyQt4.QtCore.QByteArray(b'ODF'), PyQt4.QtCore.QByteArray(b'plaintext')]
-odf_format = writer.supportedDocumentFormats()[1]
-writer.setFormat(odf_format)
-writer.setFileName('hello_world.odt')
-writer.write(doc) # Return True if successful
