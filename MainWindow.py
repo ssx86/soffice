@@ -17,8 +17,12 @@ sys.path.append( 'module')
 from TaskSelectDialog import TaskSelectDialog
 from ReportDownloadDialog import ReportDownloadDialog
 from TempleteDownloadDialog import TempleteDownloadDialog
-from AboutDialog import AboutDialog
 from ContentEditWidget import ContentEditWidget
+
+# lsp
+from About import About
+from ReportManager import ReportManager
+from TemplateManager import TemplateManager
 
 sys.path.append( 'OpenOffice')
 from OpenOffice import OpenOffice
@@ -77,7 +81,7 @@ class MainWindow( QMainWindow):
 
     def about( self, bCheck):
         print "mainWindow about..."
-        dlg = AboutDialog( self)
+        dlg = About( self)
         dlg.exec_()
         
     def contentEdit( self, bCheck):
